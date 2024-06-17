@@ -13,14 +13,14 @@
 #pragma comment(lib,"Winmm.lib")
 
 
-#define bullet_num 200			//¿ØÖÆ×Óµ¯ÊıÁ¿ÉÏÏŞ
-#define enemy_num 50			//¿ØÖÆµĞ»úÊıÁ¿ÉÏÏŞ
-#define enemy_bullet_num 50	//¿ØÖÆµĞ»ú×Óµ¯ÊıÁ¿ÉÏÏŞ
-#define prop_num 50				//¿ØÖÆµÀ¾ßÊıÁ¿ÉÏÏŞ
-#define tracing_bullet_num 20	//¿ØÖÆ×·×Ùµ¯ÊıÁ¿ÉÏÏŞ
-#define boss_bullet_num 500		//¿ØÖÆBOSSµ¯Ä»ÊıÁ¿ÉÏÏŞ
-#define BOSS_TIME 60000			//¿ØÖÆBOSSÉú³ÉÊ±¼ä
-#define BOSS_HP 1500			//¿ØÖÆBOSSÑªÁ¿
+#define bullet_num 200			//æ§åˆ¶å­å¼¹æ•°é‡ä¸Šé™
+#define enemy_num 50			//æ§åˆ¶æ•Œæœºæ•°é‡ä¸Šé™
+#define enemy_bullet_num 50	//æ§åˆ¶æ•Œæœºå­å¼¹æ•°é‡ä¸Šé™
+#define prop_num 50				//æ§åˆ¶é“å…·æ•°é‡ä¸Šé™
+#define tracing_bullet_num 20	//æ§åˆ¶è¿½è¸ªå¼¹æ•°é‡ä¸Šé™
+#define boss_bullet_num 500		//æ§åˆ¶BOSSå¼¹å¹•æ•°é‡ä¸Šé™
+#define BOSS_TIME 60000			//æ§åˆ¶BOSSç”Ÿæˆæ—¶é—´
+#define BOSS_HP 1500			//æ§åˆ¶BOSSè¡€é‡
 
 IMAGE img_enemy, img_heroblack[10], img_map, img_menu1, img_menu2, img_enemy1,
 img_shop, img_herowhite[10], img_bullet1black, img_bullet1white,
@@ -32,7 +32,7 @@ img_power_big, img_score, img_fire_max, img_herodot_black, img_herodot_white, im
 img_boss_black, img_boss_white, img_pause[3], img_end[3], img_plot[4], img_talkframe, img_helpbg;
 clock_t start, stop, middle;
 
-typedef struct enemy_data {//µĞÈËÊı¾İ½á¹¹Ìå
+typedef struct enemy_data {//æ•Œäººæ•°æ®ç»“æ„ä½“
 	float x;
 	float y;
 	int type;
@@ -42,7 +42,7 @@ typedef struct enemy_data {//µĞÈËÊı¾İ½á¹¹Ìå
 }ENEMY;
 ENEMY enemy[enemy_num];
 
-typedef struct shop_data {//ÉÌµêËùÂôµÄµØÍ¼ºÍ½ÇÉ«
+typedef struct shop_data {//å•†åº—æ‰€å–çš„åœ°å›¾å’Œè§’è‰²
 	IMAGE *map;
 	IMAGE *hero;
 	int flag;
@@ -51,27 +51,27 @@ typedef struct shop_data {//ÉÌµêËùÂôµÄµØÍ¼ºÍ½ÇÉ«
 }SHOP;
 
 
-typedef struct bullet_data {//×Óµ¯Êı¾İ½á¹¹Ìå
+typedef struct bullet_data {//å­å¼¹æ•°æ®ç»“æ„ä½“
 	int x;
 	int y;
 	bool live;
 }BULLET;
 BULLET bullet[bullet_num];
 
-typedef struct tracingbullet_data {//×·×Ùµ¯½á¹¹Ìå
+typedef struct tracingbullet_data {//è¿½è¸ªå¼¹ç»“æ„ä½“
 	double x;
 	double y;
 	double vx;
 	double vy;
 	double k;
-	double s;//Â·³Ì
+	double s;//è·¯ç¨‹
 	bool live;
-	int flag;//0Îª³õÊ¼×´Ì¬£¬1Îª¿ªÊ¼×·×Ù×´Ì¬£¬2Îª×·×ÙÖĞ£¬3ÎªÃüÖĞ
-	int dir;//1Îª×ó²à£¬2ÎªÓÒ²à
+	int flag;//0ä¸ºåˆå§‹çŠ¶æ€ï¼Œ1ä¸ºå¼€å§‹è¿½è¸ªçŠ¶æ€ï¼Œ2ä¸ºè¿½è¸ªä¸­ï¼Œ3ä¸ºå‘½ä¸­
+	int dir;//1ä¸ºå·¦ä¾§ï¼Œ2ä¸ºå³ä¾§
 }TRACINGBULLET;
 TRACINGBULLET tracingbullet[tracing_bullet_num];
 
-typedef struct enemy_bullet_data {//×Óµ¯Êı¾İ½á¹¹Ìå
+typedef struct enemy_bullet_data {//å­å¼¹æ•°æ®ç»“æ„ä½“
 	float x;
 	float y;
 	float vx;
@@ -83,7 +83,7 @@ typedef struct enemy_bullet_data {//×Óµ¯Êı¾İ½á¹¹Ìå
 }ENEMY_BULLET;
 ENEMY_BULLET enemybullet[enemy_bullet_num];
 
-typedef struct hero_data {//×Ô»úÊı¾İ½á¹¹Ìå
+typedef struct hero_data {//è‡ªæœºæ•°æ®ç»“æ„ä½“
 	double x;
 	double y;
 	double dotx;
@@ -101,14 +101,14 @@ typedef struct hero_data {//×Ô»úÊı¾İ½á¹¹Ìå
 }HERO;
 HERO hero;
 
-typedef struct hero_hp {//ÑªÁ¿Í¼Æ¬½á¹¹Ìå
+typedef struct hero_hp {//è¡€é‡å›¾ç‰‡ç»“æ„ä½“
 	int x;
 	int y;
 	int num;
 	struct hero_hp* next;
 }HP;
 
-typedef struct prop_data {//µÀ¾ß½á¹¹Ìå
+typedef struct prop_data {//é“å…·ç»“æ„ä½“
 	float x;
 	float y;
 	bool live;
@@ -120,7 +120,7 @@ typedef struct prop_data {//µÀ¾ß½á¹¹Ìå
 }PROP;
 PROP prop[prop_num];
 
-typedef struct save_data {//Êı¾İ½á¹¹Ìå
+typedef struct save_data {//æ•°æ®ç»“æ„ä½“
 	int money;
 	int maxscore;
 	int score;
@@ -129,14 +129,14 @@ typedef struct save_data {//Êı¾İ½á¹¹Ìå
 }SAVE;
 SAVE data = { 0 };
 
-typedef struct boss_data {//BOSSÊı¾İ½á¹¹Ìå
+typedef struct boss_data {//BOSSæ•°æ®ç»“æ„ä½“
 	float x;
 	float y;
-	double hp;//ÉúÃüÖµ
+	double hp;//ç”Ÿå‘½å€¼
 	int lives;
 	int stage;
 	bool live;
-	int dir;//ÒÆ¶¯·½Ïò¿ØÖÆ -1ÎªÏò×ó 0Îª³õÊ¼ 1ÎªÏòÓÒ
+	int dir;//ç§»åŠ¨æ–¹å‘æ§åˆ¶ -1ä¸ºå‘å·¦ 0ä¸ºåˆå§‹ 1ä¸ºå‘å³
 	float vx;
 	float vy;
 	IMAGE* img_black;
@@ -144,7 +144,7 @@ typedef struct boss_data {//BOSSÊı¾İ½á¹¹Ìå
 }BOSS;
 BOSS boss;
 
-typedef struct boss_bullet_data {//BOSS×Óµ¯½á¹¹Ìå
+typedef struct boss_bullet_data {//BOSSå­å¼¹ç»“æ„ä½“
 	double x;
 	double y;
 	double vx;
@@ -156,83 +156,83 @@ typedef struct boss_bullet_data {//BOSS×Óµ¯½á¹¹Ìå
 	int grazed;
 }BOSS_BULLET;
 BOSS_BULLET bossbullet[boss_bullet_num];
-double map_y;//µØÍ¼±³¾°Í¼Æ¬×ø±ê
-void ChooseMap();//Ñ¡ÔñµØÍ¼
-void ImageInit();//Í¼Æ¬³õÊ¼»¯
-void GameInit();//ÓÎÏ·³õÊ¼»¯
-void GameStart();//ÓÎÏ·¿ªÊ¼
-void HeroMove();//¿ØÖÆ×Ô»úÒÆ¶¯
-void BulletMove();//×Óµ¯ÒÆ¶¯
-void GameOver();//ÓÎÏ·½áÊø
-void BulletCreate();//´´½¨×Óµ¯
-bool timer(int ms, int id);//¼ÆÊ±Æ÷±àĞ´
-void ShopStart();//´ò¿ªÉÌµê
-void BackMenu();//·µ»Ø²Ëµ¥
-void ClickStart();//µã»÷¿ªÊ¼
-void EnemyCreate(int *flag);//µĞ»ú´´½¨
-void EnemyInit();//µĞ»ú³õÊ¼»¯
-void EnemyMove();//µĞ»úÒÆ¶¯
-int HitCheck();//Åö×²¼ì²â
-void MoneyInit();//½ğ±Ò³õÊ¼»¯
-void ScoreInit();//·ÖÊı³õÊ¼»¯
-void ScoreAdd();//·ÖÊıÔö¼Ó
-void MoneyAdd();//½ğ±ÒÔö¼Ó
-void HeroInit();//×Ô»ú³õÊ¼»¯
-void EndGame();//ÓÎÏ·³¹µ×½áÊø
-void EnemyBulletCreate();//µĞ»ú×Óµ¯´´½¨
-void EnemyBulletMove();//µĞ»ú×Óµ¯ÒÆ¶¯
-void EnemyBulletMoveWays(int i);//µĞ·½µ¯µÀ
-//void HpShow();//ÑªÁ¿³õÊ¼»¯
-void ShopBgDraw(SHOP* head);//³¬ÊĞ±³¾°»æÍ¼
-SHOP* CreateList();//ÉÌµêÁ´±í´´½¨
-void ShopPurchase(SHOP* head);//³¬ÊĞ¹ºÂò
-void HelpStart();//ÓÎÏ·ËµÃ÷Æô¶¯
-void HpUp();//ÉúÃüÖµÔö¼Ó
-HP* HpNodeCreate();//ÉúÃüÖµÁ´±í´´½¨
-void HpShow(HP* head);//ÉúÃüÖµÏÔÊ¾
-void HpMinus(HP* p, HP* head);//ÉúÃüÁ´±íÉ¾³ı½Úµã
-void HpAdd(HP* p);//ÉúÃüÁ´±íÔö¼Ó½Úµã
-void EnemyHitAnimation();//µĞÈËÊÜ»÷¶¯»­
-void PropInit();//µÀ¾ß³õÊ¼»¯
-void PropCreate(int j);//µÀ¾ßÉú³É
-void PropMove();//µÀ¾ßÒÆ¶¯
-void PowerShow();//PµãÏÔÊ¾
-void HeroLevel();//½ÇÉ«µÈ¼¶±ä»¯
-void PropXyLimit();//ÏŞÖÆµÀ¾ßÉÏÉı¾àÀë
-void AllPropsGet();//ËùÓĞµÀ¾ß»Ø¹é×Ô»ú
-void TracingBulletInit();//×·×Ùµ¯³õÊ¼»¯
-void TracingBulletCreate();//×·×Ùµ¯´´½¨
-void TracingBulletMove();//×·×Ùµ¯ÒÆ¶¯
-void GetMinDistance(int data[]);//»ñÈ¡×î½üµĞ»úÊı¾İ
-void HittedPropCreate();//×Ô»ú²úpµã
-void BossInit();//Boss³õÊ¼»¯
-void BossCreate();//BossÉú³É
-void BossMove();//BossÒÆ¶¯
-void IfBossCreate(int* timeflag,int* plotflag);//ÅĞ¶ÏBossÊÇ·ñÓ¦¸ÃÉú³É
-void BossBulletInit();//Bossµ¯Ä»³õÊ¼»¯
-void BossBulletCreate(double* angelflag);//Bossµ¯Ä»Éú³É
-void BossBulletMove();//Bossµ¯Ä»ÒÆ¶¯
-void BossHpShow();//BossÑªÁ¿ÏÔÊ¾
-void GameOverBox();//ÓÎÏ·½áÊøÌáÊ¾¿ò
-void BossDeath(int* plotflag);//BossËÀÍö
-void GamePlot(int* plotflag,int num);//ÓÎÏ·¾çÇé
-void MapMove(int num);//µØÍ¼ÒÆ¶¯
-void PowerUpMusic();//Éı¼¶ÒôÀÖ
+double map_y;//åœ°å›¾èƒŒæ™¯å›¾ç‰‡åæ ‡
+void ChooseMap();//é€‰æ‹©åœ°å›¾
+void ImageInit();//å›¾ç‰‡åˆå§‹åŒ–
+void GameInit();//æ¸¸æˆåˆå§‹åŒ–
+void GameStart();//æ¸¸æˆå¼€å§‹
+void HeroMove();//æ§åˆ¶è‡ªæœºç§»åŠ¨
+void BulletMove();//å­å¼¹ç§»åŠ¨
+void GameOver();//æ¸¸æˆç»“æŸ
+void BulletCreate();//åˆ›å»ºå­å¼¹
+bool timer(int ms, int id);//è®¡æ—¶å™¨ç¼–å†™
+void ShopStart();//æ‰“å¼€å•†åº—
+void BackMenu();//è¿”å›èœå•
+void ClickStart();//ç‚¹å‡»å¼€å§‹
+void EnemyCreate(int *flag);//æ•Œæœºåˆ›å»º
+void EnemyInit();//æ•Œæœºåˆå§‹åŒ–
+void EnemyMove();//æ•Œæœºç§»åŠ¨
+int HitCheck();//ç¢°æ’æ£€æµ‹
+void MoneyInit();//é‡‘å¸åˆå§‹åŒ–
+void ScoreInit();//åˆ†æ•°åˆå§‹åŒ–
+void ScoreAdd();//åˆ†æ•°å¢åŠ 
+void MoneyAdd();//é‡‘å¸å¢åŠ 
+void HeroInit();//è‡ªæœºåˆå§‹åŒ–
+void EndGame();//æ¸¸æˆå½»åº•ç»“æŸ
+void EnemyBulletCreate();//æ•Œæœºå­å¼¹åˆ›å»º
+void EnemyBulletMove();//æ•Œæœºå­å¼¹ç§»åŠ¨
+void EnemyBulletMoveWays(int i);//æ•Œæ–¹å¼¹é“
+//void HpShow();//è¡€é‡åˆå§‹åŒ–
+void ShopBgDraw(SHOP* head);//è¶…å¸‚èƒŒæ™¯ç»˜å›¾
+SHOP* CreateList();//å•†åº—é“¾è¡¨åˆ›å»º
+void ShopPurchase(SHOP* head);//è¶…å¸‚è´­ä¹°
+void HelpStart();//æ¸¸æˆè¯´æ˜å¯åŠ¨
+void HpUp();//ç”Ÿå‘½å€¼å¢åŠ 
+HP* HpNodeCreate();//ç”Ÿå‘½å€¼é“¾è¡¨åˆ›å»º
+void HpShow(HP* head);//ç”Ÿå‘½å€¼æ˜¾ç¤º
+void HpMinus(HP* p, HP* head);//ç”Ÿå‘½é“¾è¡¨åˆ é™¤èŠ‚ç‚¹
+void HpAdd(HP* p);//ç”Ÿå‘½é“¾è¡¨å¢åŠ èŠ‚ç‚¹
+void EnemyHitAnimation();//æ•Œäººå—å‡»åŠ¨ç”»
+void PropInit();//é“å…·åˆå§‹åŒ–
+void PropCreate(int j);//é“å…·ç”Ÿæˆ
+void PropMove();//é“å…·ç§»åŠ¨
+void PowerShow();//Pç‚¹æ˜¾ç¤º
+void HeroLevel();//è§’è‰²ç­‰çº§å˜åŒ–
+void PropXyLimit();//é™åˆ¶é“å…·ä¸Šå‡è·ç¦»
+void AllPropsGet();//æ‰€æœ‰é“å…·å›å½’è‡ªæœº
+void TracingBulletInit();//è¿½è¸ªå¼¹åˆå§‹åŒ–
+void TracingBulletCreate();//è¿½è¸ªå¼¹åˆ›å»º
+void TracingBulletMove();//è¿½è¸ªå¼¹ç§»åŠ¨
+void GetMinDistance(int data[]);//è·å–æœ€è¿‘æ•Œæœºæ•°æ®
+void HittedPropCreate();//è‡ªæœºäº§pç‚¹
+void BossInit();//Bossåˆå§‹åŒ–
+void BossCreate();//Bossç”Ÿæˆ
+void BossMove();//Bossç§»åŠ¨
+void IfBossCreate(int* timeflag,int* plotflag);//åˆ¤æ–­Bossæ˜¯å¦åº”è¯¥ç”Ÿæˆ
+void BossBulletInit();//Bosså¼¹å¹•åˆå§‹åŒ–
+void BossBulletCreate(double* angelflag);//Bosså¼¹å¹•ç”Ÿæˆ
+void BossBulletMove();//Bosså¼¹å¹•ç§»åŠ¨
+void BossHpShow();//Bossè¡€é‡æ˜¾ç¤º
+void GameOverBox();//æ¸¸æˆç»“æŸæç¤ºæ¡†
+void BossDeath(int* plotflag);//Bossæ­»äº¡
+void GamePlot(int* plotflag,int num);//æ¸¸æˆå‰§æƒ…
+void MapMove(int num);//åœ°å›¾ç§»åŠ¨
+void PowerUpMusic();//å‡çº§éŸ³ä¹
 
 int main() {
-	//Éú³ÉËæ»úÖÖ×Ó
+	//ç”Ÿæˆéšæœºç§å­
 	srand((unsigned)time(NULL));
-	//´ò¿ªÒ»¸öÍ¼ĞÎ´°¿Ú
+	//æ‰“å¼€ä¸€ä¸ªå›¾å½¢çª—å£
 	HWND hwnd = initgraph(850,800, SHOWCONSOLE);
 	ImageInit();
-	GameInit();//µĞÈË¡¢µØÍ¼¡¢×Ô»ú¡¢¶ÁÈ¡ÎÄ¼şÄÚÈİ
+	GameInit();//æ•Œäººã€åœ°å›¾ã€è‡ªæœºã€è¯»å–æ–‡ä»¶å†…å®¹
 	closegraph();
 	return 0;
 }
 
-void ImageInit() {//Í¼Æ¬³õÊ¼»¯
+void ImageInit() {//å›¾ç‰‡åˆå§‹åŒ–
 	loadimage(&img_menu1, L"Game\\bg.jpg", 500, 800);
-	loadimage(&img_menu2, L"Game\\ÁéÃÎ±³¾°cut.jpg", 350, 800);
+	loadimage(&img_menu2, L"Game\\çµæ¢¦èƒŒæ™¯cut.jpg", 350, 800);
 	loadimage(&img_shopblack, L"Game\\shopblack.jpg", 102, 104);
 	loadimage(&img_shopwhite, L"Game\\shopwhile.jpg", 102, 104);
 	//loadimage(&img_map, L"AircraftWar\\maps\\map1.jpg", 500, 800);
@@ -293,9 +293,9 @@ void ImageInit() {//Í¼Æ¬³õÊ¼»¯
 	loadimage(&img_enemy_hit_white[4], L"Game\\enemy\\enemy1_hit4_white.jpg", 48, 37);
 	loadimage(&img_enemy_hit_white[5], L"Game\\enemy\\enemy1_hit5_white.jpg", 48, 37);
 	loadimage(&img_enemy_hit_white[6], L"Game\\enemy\\enemy1_hit6_white.jpg", 48, 37);
-	loadimage(&img_power_small,L"Game\\µÀ¾ß\\power_small.jpg",15,15);
-	loadimage(&img_power_big, L"Game\\µÀ¾ß\\power_big.jpg", 25, 25);
-	loadimage(&img_score, L"Game\\µÀ¾ß\\score.jpg", 15, 15);
+	loadimage(&img_power_small,L"Game\\é“å…·\\power_small.jpg",15,15);
+	loadimage(&img_power_big, L"Game\\é“å…·\\power_big.jpg", 25, 25);
+	loadimage(&img_score, L"Game\\é“å…·\\score.jpg", 15, 15);
 	loadimage(&img_boss_black , L"Game\\enemy\\boss_black.jpg", 50, 60);
 	loadimage(&img_boss_white, L"Game\\enemy\\boss_white.jpg", 50, 60);
 	loadimage(&img_pause[0], L"Game\\pause1.jpg", 740, 640);
@@ -304,34 +304,34 @@ void ImageInit() {//Í¼Æ¬³õÊ¼»¯
 	loadimage(&img_end[0], L"Game\\End1.jpg", 740, 640);
 	loadimage(&img_end[1], L"Game\\End2.jpg", 740, 640);
 	loadimage(&img_end[2], L"Game\\End3.jpg", 740, 640);
-	loadimage(&img_plot[0], L"Game\\boss\\ç÷Â¶Åµ¶Ô»°black.jpg", 142, 155);
-	loadimage(&img_plot[1], L"Game\\boss\\ç÷Â¶Åµ¶Ô»°white.jpg", 142, 155);
-	loadimage(&img_plot[2], L"Game\\boss\\²©ÀöÁéÃÎ¶Ô»°black.jpg", 142, 155);
-	loadimage(&img_plot[3], L"Game\\boss\\²©ÀöÁéÃÎ¶Ô»°white.jpg", 142, 155);
+	loadimage(&img_plot[0], L"Game\\boss\\çªéœ²è¯ºå¯¹è¯black.jpg", 142, 155);
+	loadimage(&img_plot[1], L"Game\\boss\\çªéœ²è¯ºå¯¹è¯white.jpg", 142, 155);
+	loadimage(&img_plot[2], L"Game\\boss\\åšä¸½çµæ¢¦å¯¹è¯black.jpg", 142, 155);
+	loadimage(&img_plot[3], L"Game\\boss\\åšä¸½çµæ¢¦å¯¹è¯white.jpg", 142, 155);
 	loadimage(&img_talkframe, L"Game\\boss\\talkframe.jpg", 300, 200);
 	loadimage(&img_gameover, L"Game\\gameover.jpg", 740, 640);
 	loadimage(&img_helpbg, L"Game\\helpbg.jpg", 850, 800);
 }
 SHOP* shophead = CreateList();
 
-void GameInit() {//³õÊ¼»¯
-	//¹Ø±ÕËùÓĞÒôÀÖÎÄ¼ş
+void GameInit() {//åˆå§‹åŒ–
+	//å…³é—­æ‰€æœ‰éŸ³ä¹æ–‡ä»¶
 	mciSendString(L"close music1", NULL, NULL, NULL);
 	mciSendString(L"close music2", NULL, NULL, NULL);
 	mciSendString(L"close music3", NULL, NULL, NULL);
 	mciSendString(L"close music4", NULL, NULL, NULL);
 	mciSendString(L"close music5", NULL, NULL, NULL);
 	mciSendString(L"close music6", NULL, NULL, NULL);
-	setbkmode(TRANSPARENT);//ÉèÖÃ±³¾°ÑÕÉ«ÎªÍ¸Ã÷
-	int play = rand() % 3;//Ëæ»ú²¥·ÅÈıÊ×Ö÷²Ëµ¥bgm
+	setbkmode(TRANSPARENT);//è®¾ç½®èƒŒæ™¯é¢œè‰²ä¸ºé€æ˜
+	int play = rand() % 3;//éšæœºæ’­æ”¾ä¸‰é¦–ä¸»èœå•bgm
 	if (play == 0) {
-		mciSendString(L"open Game\\music\\³£ÊÀÖ®Ïçrepeat.mp3 alias music1", NULL, NULL, NULL);
+		mciSendString(L"open Game\\music\\å¸¸ä¸–ä¹‹ä¹¡repeat.mp3 alias music1", NULL, NULL, NULL);
 	}
 	else if (play == 1) {
-		mciSendString(L"open Game\\music\\İÍÃÎÏërepeat.MP3 alias music1", NULL, NULL, NULL);
+		mciSendString(L"open Game\\music\\èƒæ¢¦æƒ³repeat.MP3 alias music1", NULL, NULL, NULL);
 	}
 	else if(play == 2) {
-		mciSendString(L"open Game\\music\\ÓÀÒ¹³­repeat.MP3 alias music1", NULL, NULL, NULL);
+		mciSendString(L"open Game\\music\\æ°¸å¤œæŠ„repeat.MP3 alias music1", NULL, NULL, NULL);
 	}
 	mciSendString(L"close music2", NULL, NULL, NULL);
 	mciSendString(L"play music1 repeat", NULL, NULL, NULL);
@@ -363,16 +363,16 @@ void ClickStart() {
 	MOUSEMSG msg = { 0 };
 	while (1) {
 		msg = GetMouseMsg();
-		if(msg.uMsg == WM_LBUTTONDOWN && timer(500,2)) {//×ó¼üµã»÷
+		if(msg.uMsg == WM_LBUTTONDOWN && timer(500,2)) {//å·¦é”®ç‚¹å‡»
 			if (msg.x >= 410 && msg.x <= 480 && msg.y >= 340 && msg.y <= 410 && timer(500,13)) {
-				ShopStart();//ÅĞ¶¨½øÈëÉÌ³Ç
+				ShopStart();//åˆ¤å®šè¿›å…¥å•†åŸ
 			}
 			else if (msg.x >= 175 && msg.x <= 345 && msg.y >= 510 && msg.y <= 565) {
-				GameStart();//ÅĞ¶¨¿ªÊ¼ÓÎÏ·
+				GameStart();//åˆ¤å®šå¼€å§‹æ¸¸æˆ
 			}
-			else if (msg.uMsg == WM_LBUTTONDOWN && timer(500, 16)) {//×ó¼üµã»÷
+			else if (msg.uMsg == WM_LBUTTONDOWN && timer(500, 16)) {//å·¦é”®ç‚¹å‡»
 				if (msg.x >= 180 && msg.x <= 340 && msg.y >= 605 && msg.y <= 655 && timer(500, 13)) {
-					HelpStart();//ÅĞ¶¨½øÈë°ïÖúËµÃ÷
+					HelpStart();//åˆ¤å®šè¿›å…¥å¸®åŠ©è¯´æ˜
 				}
 			}
 		}
@@ -380,7 +380,7 @@ void ClickStart() {
 }
 
 
-void HelpStart() {//°ïÖúËµÃ÷
+void HelpStart() {//å¸®åŠ©è¯´æ˜
 	putimage(0, 0, &img_helpbg);
 	while (1) {
 		if (GetAsyncKeyState(0x1B)) {
@@ -390,7 +390,7 @@ void HelpStart() {//°ïÖúËµÃ÷
 }
 
 int flags[8] = {0};
-SHOP* CreateList() {//ÉÌµêÁ´±í´´½¨(Í·²å·¨)
+SHOP* CreateList() {//å•†åº—é“¾è¡¨åˆ›å»º(å¤´æ’æ³•)
 	SHOP* head = NULL, * p;
 	for (int i = 0; i < 8; i++) {
 		p = (SHOP*)malloc(sizeof(SHOP));
@@ -404,16 +404,16 @@ SHOP* CreateList() {//ÉÌµêÁ´±í´´½¨(Í·²å·¨)
 	return head;
 }
 
-void ShopStart() {//´ò¿ªÉÌµê
+void ShopStart() {//æ‰“å¼€å•†åº—
 	MOUSEMSG msg = { 0 };
-	settextstyle(30, 0, _T("Î¢ÈíÑÅºÚ"), 0, 0, FW_BOLD, 0, 0, 0);
+	settextstyle(30, 0, _T("å¾®è½¯é›…é»‘"), 0, 0, FW_BOLD, 0, 0, 0);
 	settextcolor(WHITE);
 	setlinecolor(RGB(155, 155, 155));
 	setfillcolor(RGB(155, 155, 155));
 	fillrectangle(520,200,620,230);
-	outtextxy(520,200,_T("½ğ±ÒÊıÁ¿£º"));
+	outtextxy(520,200,_T("é‡‘å¸æ•°é‡ï¼š"));
 	wchar_t summoney[20];
-	_itow_s(data.money, summoney, 10);//×ª»»Êı¾İÀàĞÍÒÔÍ¨¹ıouttextxyÊä³ö
+	_itow_s(data.money, summoney, 10);//è½¬æ¢æ•°æ®ç±»å‹ä»¥é€šè¿‡outtextxyè¾“å‡º
 	fillrectangle(700, 200, 800, 230);
 	outtextxy(700, 200, summoney);
 	putimage(0, 0, &sheet);
@@ -422,7 +422,7 @@ void ShopStart() {//´ò¿ªÉÌµê
 	GameInit();
 }
 
-void ShopBgDraw(SHOP* head) {//ÉÌµê»æÍ¼
+void ShopBgDraw(SHOP* head) {//å•†åº—ç»˜å›¾
 	SHOP* p = head;
 	FILE* fp = fopen("Game\\shopbgsave.txt", "r");
 	while(p != NULL) {
@@ -445,7 +445,7 @@ void ShopBgDraw(SHOP* head) {//ÉÌµê»æÍ¼
 	fclose(fp);
 }
 
-void ShopPurchase(SHOP* head) {//ÉÌµê¹ºÂò
+void ShopPurchase(SHOP* head) {//å•†åº—è´­ä¹°
 	SHOP* p = head;
 	MOUSEMSG msg = { 0 };
 	while (1) {
@@ -506,11 +506,11 @@ void ShopPurchase(SHOP* head) {//ÉÌµê¹ºÂò
 	}
 }
 
-void GameStart() {//ÓÎÏ·Ö÷³ÌĞò¿ªÊ¼
+void GameStart() {//æ¸¸æˆä¸»ç¨‹åºå¼€å§‹
 	mciSendString(L"close music1", NULL, NULL, NULL);
-	mciSendString(L"open Game\\music\\¶«·½ç³ÏëÌìrepeat.MP3 alias music2", NULL, NULL, NULL);
+	mciSendString(L"open Game\\music\\ä¸œæ–¹ç»¯æƒ³å¤©repeat.MP3 alias music2", NULL, NULL, NULL);
 	mciSendString(L"play music2 repeat", NULL, NULL, NULL);
-	start = clock();//ÓÎÏ·¼ÆÊ±
+	start = clock();//æ¸¸æˆè®¡æ—¶
 	ScoreInit(); 
 	int flag = 0;
 	int bossflag = 0;
@@ -598,25 +598,25 @@ void GameStart() {//ÓÎÏ·Ö÷³ÌĞò¿ªÊ¼
 	GameOver();
 }
 
-void HeroInit() {//×Ô»ú³õÊ¼»¯
+void HeroInit() {//è‡ªæœºåˆå§‹åŒ–
 	hero.x = 220;
 	hero.y = 600;
 	hero.dotx = hero.x + 9;
 	hero.doty = hero.y + 13;
 	hero.hp = 3;
 	hero.level = 1;
-	hero.last_level = 1;//ÓÃÓÚÅĞ¶Ïpower±ä»¯ºóµÈ¼¶ÌáÉı»¹ÊÇÏÂ½µ
+	hero.last_level = 1;//ç”¨äºåˆ¤æ–­powerå˜åŒ–åç­‰çº§æå‡è¿˜æ˜¯ä¸‹é™
 	hero.power = 0;
 	hero.vx = 4;
 	hero.vy = 4;
 	hero.powerflag = 0;
 	int flag = 0;
-	//Ô­¼Æ»®ÀûÓÃ¸Ä±äflagÉè¼Æ¶àÎ»×Ô»ú½ÇÉ«£¬×îÖÕÒòÊ±¼äÔ­ÒòÎ´ÊµÏÖ
+	//åŸè®¡åˆ’åˆ©ç”¨æ”¹å˜flagè®¾è®¡å¤šä½è‡ªæœºè§’è‰²ï¼Œæœ€ç»ˆå› æ—¶é—´åŸå› æœªå®ç°
 	hero.img_black = &img_heroblack[flag];
 	hero.img_white = &img_herowhite[flag];
 }
 
-void HeroLevel() {//×Ô»úµÈ¼¶
+void HeroLevel() {//è‡ªæœºç­‰çº§
 	if (hero.power >= 0 && hero.power < 1) {
 		hero.level = 1;
 	}
@@ -634,7 +634,7 @@ void HeroLevel() {//×Ô»úµÈ¼¶
 	}
 }
 
-void PowerUpMusic() {//POWERÉı¼¶²¥·ÅÒôĞ§
+void PowerUpMusic() {//POWERå‡çº§æ’­æ”¾éŸ³æ•ˆ
 	if (hero.level - hero.last_level > 0.99) {
 		mciSendString(L"close music5", NULL, NULL, NULL);
 		mciSendString(L"open Game\\music\\powerup.wav alias music5", NULL, NULL, NULL);
@@ -647,14 +647,14 @@ void PowerUpMusic() {//POWERÉı¼¶²¥·ÅÒôĞ§
 	}
 }
 
-void HeroMove() {//×Ô»úÒÆ¶¯
+void HeroMove() {//è‡ªæœºç§»åŠ¨
 	hero.dotx = hero.x + 9;
 	hero.doty = hero.y + 13;
 	putimage(hero.x, hero.y, hero.img_black, NOTSRCERASE);
 	putimage(hero.x, hero.y, hero.img_white, SRCINVERT);
 	putimage(hero.dotx, hero.doty, &img_herodot_black, NOTSRCERASE);
 	putimage(hero.dotx, hero.doty, &img_herodot_white, SRCINVERT);
-	//¼ì²âÒÆ¶¯·½Ïò°´¼ü
+	//æ£€æµ‹ç§»åŠ¨æ–¹å‘æŒ‰é”®
 	if (GetAsyncKeyState(0x43)) {//C 0x43
 		hero.vx = 2;
 		hero.vy = 2;
@@ -663,29 +663,29 @@ void HeroMove() {//×Ô»úÒÆ¶¯
 		hero.vx = 4;
 		hero.vy = 4;
 	}
-	if (GetAsyncKeyState(0x26)) {//¡ü 0x26
+	if (GetAsyncKeyState(0x26)) {//â†‘ 0x26
 		if (hero.y >= 50) {
 			hero.y -= hero.vy;
 		}
 	}
-	if (GetAsyncKeyState(0x28)) {//¡ı 0x28
+	if (GetAsyncKeyState(0x28)) {//â†“ 0x28
 		if (hero.y <= 740) {
 			hero.y += hero.vy;
 		}
 	}
-	if (GetAsyncKeyState(0x25)) {//¡û 0x25
+	if (GetAsyncKeyState(0x25)) {//â† 0x25
 		if (hero.x >= 5) {
 			hero.x -= hero.vx;
 		}
 	}
-	if (GetAsyncKeyState(0x27)) {//¡ú 0x27
+	if (GetAsyncKeyState(0x27)) {//â†’ 0x27
 		if (hero.x <= 465) {
 			hero.x += hero.vx;
 		}
 	}
 }
 
-bool timer(int ms, int id) {//¼ÆÊ±Æ÷º¯Êı
+bool timer(int ms, int id) {//è®¡æ—¶å™¨å‡½æ•°
 	static DWORD t[50];
 	if (clock() - t[id] >= ms) {
 		t[id] = clock();
@@ -694,7 +694,7 @@ bool timer(int ms, int id) {//¼ÆÊ±Æ÷º¯Êı
 	return false;
 }
 
-void BulletCreate() {//×Ô»ú×Óµ¯´´½¨
+void BulletCreate() {//è‡ªæœºå­å¼¹åˆ›å»º
 	for (int i = 0; i < bullet_num; i++) {
 		if (!bullet[i].live && timer(150, 0)) {
 			bullet[i].x = hero.x + 7;
@@ -730,7 +730,7 @@ void BulletCreate() {//×Ô»ú×Óµ¯´´½¨
 	
 }
 
-void BulletMove() {//×Ô»ú×Óµ¯ÒÆ¶¯
+void BulletMove() {//è‡ªæœºå­å¼¹ç§»åŠ¨
 	for (int i = 0; i < bullet_num; i++) {
 		if (bullet[i].live) {
 			bullet[i].y -= 15;
@@ -748,8 +748,8 @@ void BulletMove() {//×Ô»ú×Óµ¯ÒÆ¶¯
 
 void BackMenu() {
 	int flag = 0;
-	if (GetAsyncKeyState(0x1B)) {//¼ì²âÊÇ·ñ·µ»ØÖ÷²Ëµ¥ ESC 0x1B
-		while (1) {//¼ì²âµ½°´ÏÂESC£¬½øÈëÔİÍ£½çÃæ£¬Ê¹ÓÃwhile¶¨×¡
+	if (GetAsyncKeyState(0x1B)) {//æ£€æµ‹æ˜¯å¦è¿”å›ä¸»èœå• ESC 0x1B
+		while (1) {//æ£€æµ‹åˆ°æŒ‰ä¸‹ESCï¼Œè¿›å…¥æš‚åœç•Œé¢ï¼Œä½¿ç”¨whileå®šä½
 			putimage(50, 100, &img_pause[flag]);
 			FlushBatchDraw();
 			if (GetAsyncKeyState(0x26)) {
@@ -772,8 +772,8 @@ void BackMenu() {
 	}
 }
 
-void MoneyInit() {//³õÊ¼»¯½ğ±Ò
-	//´ò¿ªÎÄ¼ş£¬¶ÁÈë½ğ±Ò
+void MoneyInit() {//åˆå§‹åŒ–é‡‘å¸
+	//æ‰“å¼€æ–‡ä»¶ï¼Œè¯»å…¥é‡‘å¸
 	FILE* fp = fopen("Game\\save.txt","r");
 	if(fp == NULL){
 		perror("fopen");
@@ -783,7 +783,7 @@ void MoneyInit() {//³õÊ¼»¯½ğ±Ò
 	fclose(fp);
 }
 
-void ScoreInit() {//³õÊ¼»¯·ÖÊı
+void ScoreInit() {//åˆå§‹åŒ–åˆ†æ•°
 	data.score = 0;
 }
 
@@ -792,8 +792,8 @@ void ScoreAdd() {
 	setlinecolor(RGB(155, 155, 155));
 	setfillcolor(RGB(155, 155, 155));
 	fillrectangle(520, 250, 600, 280);
-	outtextxy(520, 250, _T("²Ğ»úÊı£º"));
-	settextstyle(30, 0, _T("Î¢ÈíÑÅºÚ"), 0, 0, FW_BOLD, 0, 0, 0);
+	outtextxy(520, 250, _T("æ®‹æœºæ•°ï¼š"));
+	settextstyle(30, 0, _T("å¾®è½¯é›…é»‘"), 0, 0, FW_BOLD, 0, 0, 0);
 	fillrectangle(520, 100, 600, 130);
 	outtextxy(520, 100, L"SCORE:");
 	fillrectangle(520, 50, 655, 80);
@@ -801,32 +801,32 @@ void ScoreAdd() {
 	fillrectangle(520, 370, 610, 400);
 	outtextxy(520, 370, L"GRAZE:");
 	wchar_t grazebullet[20];
-	_itow_s(data.graze,grazebullet,10);//×ª»»Êı¾İÀàĞÍÒÔÍ¨¹ıouttextxyÊä³ö
+	_itow_s(data.graze,grazebullet,10);//è½¬æ¢æ•°æ®ç±»å‹ä»¥é€šè¿‡outtextxyè¾“å‡º
 	fillrectangle(650, 370, 700, 400);
 	outtextxy(650, 370, grazebullet);
 	wchar_t maxscore[20];
-	_itow_s(data.maxscore, maxscore, 10);//×ª»»Êı¾İÀàĞÍÒÔÍ¨¹ıouttextxyÊä³ö
+	_itow_s(data.maxscore, maxscore, 10);//è½¬æ¢æ•°æ®ç±»å‹ä»¥é€šè¿‡outtextxyè¾“å‡º
 	fillrectangle(700, 50, 800, 80);
 	outtextxy(700, 50, maxscore);
 	//data.score++;
 	wchar_t sumscore[20];
-	_itow_s(data.score, sumscore, 10);//×ª»»Êı¾İÀàĞÍÒÔÍ¨¹ıouttextxyÊä³ö
+	_itow_s(data.score, sumscore, 10);//è½¬æ¢æ•°æ®ç±»å‹ä»¥é€šè¿‡outtextxyè¾“å‡º
 	fillrectangle(700, 100, 800, 130);
 	outtextxy(700, 100, sumscore);
 }
 
-void MoneyAdd() {//½ğ±Ò¸üĞÂ
-	settextstyle(30, 0, _T("Î¢ÈíÑÅºÚ"),0,0,FW_BOLD,0,0,0);
+void MoneyAdd() {//é‡‘å¸æ›´æ–°
+	settextstyle(30, 0, _T("å¾®è½¯é›…é»‘"),0,0,FW_BOLD,0,0,0);
 	fillrectangle(520, 200, 620, 230);
-	outtextxy(520, 200, _T("½ğ±ÒÊıÁ¿£º"));
+	outtextxy(520, 200, _T("é‡‘å¸æ•°é‡ï¼š"));
 	wchar_t summoney[20];
-	_itow_s(data.money, summoney, 10);//×ª»»Êı¾İÀàĞÍÒÔÍ¨¹ıouttextxyÊä³ö
+	_itow_s(data.money, summoney, 10);//è½¬æ¢æ•°æ®ç±»å‹ä»¥é€šè¿‡outtextxyè¾“å‡º
 	fillrectangle(700, 200, 800, 230);
 	outtextxy(700, 200, summoney);
 }
 
 
-void EnemyInit() {//µĞ»ú³õÊ¼»¯
+void EnemyInit() {//æ•Œæœºåˆå§‹åŒ–
 	for (int i = 0; i < enemy_num; i++) {
 		enemy[i].live = false;
 		enemy[i].x = 1000;
@@ -834,12 +834,12 @@ void EnemyInit() {//µĞ»ú³õÊ¼»¯
 	}
 }
 
-void EnemyCreate(int *flag) {//µĞ»ú´´½¨
-	if (timer(2500,23)) {//Ã¿2.5ÃëÊ¹µĞ»ú±ä»»·½ÏòÉú³É
+void EnemyCreate(int *flag) {//æ•Œæœºåˆ›å»º
+	if (timer(2500,23)) {//æ¯2.5ç§’ä½¿æ•Œæœºå˜æ¢æ–¹å‘ç”Ÿæˆ
 		*flag = (*flag == 1) ? 2 : 1;
 	}
 	for (int i = 0; i < enemy_num; i++) {
-		if (enemy[i].x < -50 || enemy[i].x >550 || enemy[i].y > 850) {//»ØÊÕµĞ»ú
+		if (enemy[i].x < -50 || enemy[i].x >550 || enemy[i].y > 850) {//å›æ”¶æ•Œæœº
 			enemy[i].live = false;
 			enemy[i].hit = -1;
 		}
@@ -861,7 +861,7 @@ void EnemyCreate(int *flag) {//µĞ»ú´´½¨
 }
 
 
-void EnemyMove() {//µĞ»úÒÆ¶¯
+void EnemyMove() {//æ•Œæœºç§»åŠ¨
 	for (int i = 0; i < enemy_num; i++) {
 		if (enemy[i].live == true) {
 			putimage(enemy[i].x, enemy[i].y, &img_enemy_hit_black[0], NOTSRCERASE);
@@ -880,7 +880,7 @@ void EnemyMove() {//µĞ»úÒÆ¶¯
 	}
 }
 
-void EnemyHitAnimation() {//µĞ»úÊÜ»÷¶¯»­
+void EnemyHitAnimation() {//æ•Œæœºå—å‡»åŠ¨ç”»
 	for (int i = 0; i < enemy_num; i++) {
 		if (enemy[i].live == false && enemy[i].hit == 0) {
 			enemy[i].hit = 1;
@@ -899,8 +899,8 @@ void EnemyHitAnimation() {//µĞ»úÊÜ»÷¶¯»­
 	}
 }
 
-int HitCheck() {//Åö×²¼ì²â
-	for (int i = 0; i < enemy_num; i++) {//µĞ»úÓë½ÇÉ«Åö×²
+int HitCheck() {//ç¢°æ’æ£€æµ‹
+	for (int i = 0; i < enemy_num; i++) {//æ•Œæœºä¸è§’è‰²ç¢°æ’
 		if (hero.dotx > enemy[i].x - 17 && hero.dotx < enemy[i].x + 28
 			&& hero.doty > enemy[i].y - 17 && hero.doty < enemy[i].y + 31 && timer(5000,4) ) {
 			hero.hp--;
@@ -916,7 +916,7 @@ int HitCheck() {//Åö×²¼ì²â
 				return 1;
 			}
 		}
-		for(int j = 0; j < bullet_num; j++) {//×Óµ¯ÓëµĞ·½Åö×²	
+		for(int j = 0; j < bullet_num; j++) {//å­å¼¹ä¸æ•Œæ–¹ç¢°æ’	
 			if (bullet[j].x >= enemy[i].x - 20 && bullet[j].x <= enemy[i].x + 28 && bullet[j].y >= enemy[i].y - 20 && bullet[j].y <= enemy[i].y + 31 && bullet[j].y > 0 && bullet[j].y < 800) {
 				bullet[j].live = false;
 				bullet[j].y = -500;
@@ -926,14 +926,14 @@ int HitCheck() {//Åö×²¼ì²â
 				MoneyAdd();
 				PropCreate(i);
 			}
-			//×Óµ¯ÓëbossÅö×²
+			//å­å¼¹ä¸bossç¢°æ’
 			else if (bullet[j].x >= boss.x - 20 && bullet[j].x <= boss.x + 60 && bullet[j].y >= boss.y - 20 && bullet[j].y <= boss.y + 80 && bullet[j].y > 0 && bullet[j].y < 800) {
 				boss.hp -= 2;
 				bullet[j].live = false;
 				bullet[j].y = -500;
 			}
 		}
-		for (int k = 0; k < tracing_bullet_num; k++) {//×·×Ùµ¯ÓëµĞ·½Åö×²
+		for (int k = 0; k < tracing_bullet_num; k++) {//è¿½è¸ªå¼¹ä¸æ•Œæ–¹ç¢°æ’
 			if (tracingbullet[k].x >= enemy[i].x - 25 && tracingbullet[k].x <= enemy[i].x + 28 
 				&& tracingbullet[k].y >= enemy[i].y - 25 && tracingbullet[k].y <= enemy[i].y + 31
 				&& tracingbullet[k].y > 0 && tracingbullet[k].y < 800 && tracingbullet[k].x < 530 && tracingbullet[k].x > -30) {
@@ -955,7 +955,7 @@ int HitCheck() {//Åö×²¼ì²â
 		}
 		
 	}
-	for (int k = 0; k < enemy_bullet_num; k++) {//µĞ·½×Óµ¯Óë½ÇÉ«Åö×²
+	for (int k = 0; k < enemy_bullet_num; k++) {//æ•Œæ–¹å­å¼¹ä¸è§’è‰²ç¢°æ’
 		if (hero.dotx < enemybullet[k].x + 18 && hero.dotx > enemybullet[k].x - 17
 			&& hero.doty < enemybullet[k].y + 18 && hero.doty > enemybullet[k].y - 17 && timer(5000, 8)) {
 			hero.hp--;
@@ -963,7 +963,7 @@ int HitCheck() {//Åö×²¼ì²â
 			data.score -= 1000;
 			hero.power -= 1;
 			hero.last_level = hero.level;
-			mciSendString(L"close music6", NULL, NULL, NULL);//×Ô»úÊÜ»÷ÒôĞ§
+			mciSendString(L"close music6", NULL, NULL, NULL);//è‡ªæœºå—å‡»éŸ³æ•ˆ
 			mciSendString(L"open Game\\music\\pldead00.wav alias music6", NULL, NULL, NULL);
 			mciSendString(L"play music6", NULL, NULL, NULL);
 			HittedPropCreate();
@@ -981,13 +981,13 @@ int HitCheck() {//Åö×²¼ì²â
 			(enemybullet[k].x >= hero.x - 18 && enemybullet[k].x <= hero.x - 9 &&
 				enemybullet[k].y >= hero.y - 5 && enemybullet[k].y <= hero.y + 12) ||
 			(enemybullet[k].x >= hero.x + 26 && enemybullet[k].x <= hero.x + 35 &&
-				enemybullet[k].y >= hero.y - 5 && enemybullet[k].y <= hero.y + 12))) {//²Áµ¯ÅĞ¶¨	
+				enemybullet[k].y >= hero.y - 5 && enemybullet[k].y <= hero.y + 12))) {//æ“¦å¼¹åˆ¤å®š	
 			data.graze++;
 			enemybullet[k].grazed = 1;
 			data.score += 100;
 		}
 	}
-	for (int i = 0; i < boss_bullet_num; i++) {//Bossµ¯Ä»Óë×Ô»úÅö×²
+	for (int i = 0; i < boss_bullet_num; i++) {//Bosså¼¹å¹•ä¸è‡ªæœºç¢°æ’
 		if (hero.dotx < bossbullet[i].x + 15 && hero.dotx > bossbullet[i].x - 15
 			&& hero.doty < bossbullet[i].y + 15 && hero.doty > bossbullet[i].y - 10 && timer(5000, 43)) {
 			hero.hp--;
@@ -1013,13 +1013,13 @@ int HitCheck() {//Åö×²¼ì²â
 			(bossbullet[i].x >= hero.x - 18 && bossbullet[i].x <= hero.x - 9 &&
 				bossbullet[i].y >= hero.y - 5 && bossbullet[i].y <= hero.y + 12) ||
 			(bossbullet[i].x >= hero.x + 26 && bossbullet[i].x <= hero.x + 35 &&
-				bossbullet[i].y >= hero.y - 5 && bossbullet[i].y <= hero.y + 12))) {//²Áµ¯ÅĞ¶¨
+				bossbullet[i].y >= hero.y - 5 && bossbullet[i].y <= hero.y + 12))) {//æ“¦å¼¹åˆ¤å®š
 			data.graze++;
 			bossbullet[i].grazed = 1;
 			data.score += 100;
 		}
 	}
-	for (int l = 0; l < prop_num; l++) {//µÀ¾ß½øÈë½ÇÉ«ÎüÊÕ·¶Î§
+	for (int l = 0; l < prop_num; l++) {//é“å…·è¿›å…¥è§’è‰²å¸æ”¶èŒƒå›´
 		if (hero.x <= prop[l].x + 25 && hero.x >= prop[l].x - 45 && hero.y <= prop[l].y + 25 && hero.y >= prop[l].y - 55) {
 			if (prop[l].img == &img_power_small) {
 				hero.power += 0.03;
@@ -1086,11 +1086,11 @@ void GameOverBox() {
 	}
 }
 
-void EndGame() {//ÍË³öÓÎÏ·
+void EndGame() {//é€€å‡ºæ¸¸æˆ
 	exit(1);
 }
 
-void EnemyBulletCreate() {//µĞ»ú×Óµ¯Éú³É
+void EnemyBulletCreate() {//æ•Œæœºå­å¼¹ç”Ÿæˆ
 	for (int i = 0; i < enemy_num; i++) {
 		if (enemy[i].live) {
 			for (int j = 0; j < enemy_bullet_num; j ++) {
@@ -1238,10 +1238,10 @@ void PropCreate(int j) {
 			}*/
 			if(flag >= 0 && flag < 15){
 				if (flag == 0) {
-					prop[i].img = &img_power_big;//´ópower
+					prop[i].img = &img_power_big;//å¤§power
 				}
 				else if (flag >= 1 && flag <= 12) {
-					prop[i].img = &img_power_small;//Ğ¡power
+					prop[i].img = &img_power_small;//å°power
 				}
 				else if (flag > 12) {
 					prop[i].img = &img_score;//score
@@ -1262,7 +1262,7 @@ void PropMove() {
 	for (int i = 0; i < prop_num; i++) {
 		if (prop[i].live == true) {
 			putimage(prop[i].x,prop[i].y,prop[i].img);
-			if (prop[i].state == 0) {//0´ú±íÉÏÉı×´Ì¬
+			if (prop[i].state == 0) {//0ä»£è¡¨ä¸Šå‡çŠ¶æ€
 				prop[i].y -= prop[i].vy;
 				//if (timer(10,26)) {
 					prop[i].vy -= 0.01;
@@ -1272,14 +1272,14 @@ void PropMove() {
 					prop[i].state = 1;
 				}
 			}
-			else if (prop[i].state == 1) {//1´ú±íÏÂ½µ×´Ì¬
+			else if (prop[i].state == 1) {//1ä»£è¡¨ä¸‹é™çŠ¶æ€
 				if (prop[i].vy < 2) {
 					prop[i].vy+= 0.2;
 				}
 				prop[i].vx = 0;
 				prop[i].y += prop[i].vy;
 			}
-			else if (prop[i].state == 2) {//2´ú±í»Ø¹é×´Ì¬
+			else if (prop[i].state == 2) {//2ä»£è¡¨å›å½’çŠ¶æ€
 				if (prop[i].x < hero.x && prop[i].y < hero.y) {
 					prop[i].vy = 10;
 					prop[i].x += prop[i].vy;
@@ -1305,7 +1305,7 @@ void PropMove() {
 	}
 }
 
-void PropXyLimit() {//²¹³äÏŞ¶¨µÀ¾ßÉÏÉı·¶Î§
+void PropXyLimit() {//è¡¥å……é™å®šé“å…·ä¸Šå‡èŒƒå›´
 	for (int i = 0; i < prop_num; i++) {
 		const int y = prop[i].y;
 		if (prop[i].state == 0 && prop[i].start_y - prop[i].y >= 50) {
@@ -1316,7 +1316,7 @@ void PropXyLimit() {//²¹³äÏŞ¶¨µÀ¾ßÉÏÉı·¶Î§
 
 void PowerShow() {
 	fillrectangle(520, 320, 800, 350);
-	outtextxy(520, 320, _T("POWER£º"));
+	outtextxy(520, 320, _T("POWERï¼š"));
 	outtextxy(700, 320, L"/4.00");
 	wchar_t power[20];
 	_stprintf(power,L"%.2lf",hero.power);
@@ -1347,7 +1347,7 @@ void TracingBulletInit() {
 }
 
 void TracingBulletCreate() {
-	for (int i = 0; i < tracing_bullet_num; i++) {//×ó²à×·×Ùµ¯
+	for (int i = 0; i < tracing_bullet_num; i++) {//å·¦ä¾§è¿½è¸ªå¼¹
 		if (tracingbullet[i].live == false) {
 			tracingbullet[i].x = hero.x - 35;
 			tracingbullet[i].y = hero.y + 10;
@@ -1360,7 +1360,7 @@ void TracingBulletCreate() {
 			break;
 		}
 	}
-	for (int i = 0; i < tracing_bullet_num; i++) {//ÓÒ²à×·×Ùµ¯
+	for (int i = 0; i < tracing_bullet_num; i++) {//å³ä¾§è¿½è¸ªå¼¹
 		if (tracingbullet[i].live == false) {
 			tracingbullet[i].x = hero.x + 40;
 			tracingbullet[i].y = hero.y + 10;
@@ -1463,11 +1463,11 @@ void GetMinDistance(int data[]) {
 }
 
 
-void HittedPropCreate() {//×Ô»ú±¬pµã
+void HittedPropCreate() {//è‡ªæœºçˆ†pç‚¹
 	int flag = 0;
 	for (int i = 0; i < prop_num; i++) {
 		if (prop[i].live == false) {
-			prop[i].img = &img_power_big;//´ópower
+			prop[i].img = &img_power_big;//å¤§power
 			prop[i].live = true;	
 			prop[i].vy = 1.5;
 			if (flag == 0) {
@@ -1500,7 +1500,7 @@ void HittedPropCreate() {//×Ô»ú±¬pµã
 }
 
 
-void BossInit() {//Boss³õÊ¼»¯
+void BossInit() {//Bossåˆå§‹åŒ–
 	boss.x = -500;
 	boss.y = -500;
 	boss.live = false;
@@ -1519,16 +1519,16 @@ void IfBossCreate(int* timeflag, int* plotflag) {
 			*timeflag = 0;
 			*plotflag = 1;
 		}
-		else if (*timeflag == 0) {//Ö»ĞèÒªÉú³ÉÒ»´Îboss
+		else if (*timeflag == 0) {//åªéœ€è¦ç”Ÿæˆä¸€æ¬¡boss
 			mciSendString(L"close music2", NULL, NULL, NULL);
-			mciSendString(L"open Game\\music\\ç÷Â¶ÅµÇúrepeat.mp3 alias music3", NULL, NULL, NULL);
+			mciSendString(L"open Game\\music\\çªéœ²è¯ºæ›²repeat.mp3 alias music3", NULL, NULL, NULL);
 			mciSendString(L"play music3 repeat", NULL, NULL, NULL);
 			*timeflag = 1;
 		}
 	}
 }
 
-void BossCreate() {//BossÉú³É
+void BossCreate() {//Bossç”Ÿæˆ
 	boss.x = 230;
 	boss.y = 150;
 	boss.live = true;
@@ -1536,11 +1536,11 @@ void BossCreate() {//BossÉú³É
 	boss.img_white = &img_boss_white;
 }
 
-void BossMove() {//BossÒÆ¶¯
+void BossMove() {//Bossç§»åŠ¨
 	putimage(boss.x, boss.y, boss.img_black, NOTSRCERASE);
 	putimage(boss.x, boss.y, boss.img_white, SRCINVERT);
 	BossHpShow();
-	if (timer(2000, 36)) {//Ã¿2sÊ¹BOSSÒÆ¶¯×´Ì¬±ä»¯Ò»´Î
+	if (timer(2000, 36)) {//æ¯2sä½¿BOSSç§»åŠ¨çŠ¶æ€å˜åŒ–ä¸€æ¬¡
 		switch (boss.dir) {
 		case 0:
 			boss.dir = 1;
@@ -1579,7 +1579,7 @@ void BossMove() {//BossÒÆ¶¯
 	boss.x += boss.vx;
 }
 
-void BossBulletInit() {//BOSSµ¯Ä»³õÊ¼»¯
+void BossBulletInit() {//BOSSå¼¹å¹•åˆå§‹åŒ–
 	for (int i = 0; i < bossbullet[i].live; i++) {
 		bossbullet[i].angel = 0.0;
 		bossbullet[i].x = -500;
@@ -1591,13 +1591,13 @@ void BossBulletInit() {//BOSSµ¯Ä»³õÊ¼»¯
 	}
 }
 
-void BossBulletCreate(double* angelflag) {//Bossµ¯Ä»Éú³É
+void BossBulletCreate(double* angelflag) {//Bosså¼¹å¹•ç”Ÿæˆ
 	double angleadd1 = 2 * M_PI / 36;//0.17453
 	double angleadd2 = 2 * M_PI / 12;
 	double angleadd3 = 2 * M_PI / 72;
-	//Èı¸ö±äÁ¿¿ØÖÆ²»Í¬½×¶Î×Óµ¯·¢Éä½Ç¶È
+	//ä¸‰ä¸ªå˜é‡æ§åˆ¶ä¸åŒé˜¶æ®µå­å¼¹å‘å°„è§’åº¦
 	int t;
-	//t¿ØÖÆBOSS²»Í¬½×¶Î¹¥»÷ËÙ¶È²»Í¬
+	//tæ§åˆ¶BOSSä¸åŒé˜¶æ®µæ”»å‡»é€Ÿåº¦ä¸åŒ
 	if (boss.stage == 1) {
 		t = 750;
 	}
@@ -1612,7 +1612,7 @@ void BossBulletCreate(double* angelflag) {//Bossµ¯Ä»Éú³É
 			for (int j = 0; j < 36; j++) {
 				for (int i = 0; i < boss_bullet_num; i++) {
 					if (bossbullet[i].live == false) {
-						//bossbullet[i].angel = (*bosscreateflag) * (j * angleadd);//ÆæÆæ¹Ö¹ÖµÄĞ§¹û£¬µ«ÊÇºÃÏñ»¹²»´í
+						//bossbullet[i].angel = (*bosscreateflag) * (j * angleadd);//å¥‡å¥‡æ€ªæ€ªçš„æ•ˆæœï¼Œä½†æ˜¯å¥½åƒè¿˜ä¸é”™
 						if (boss.stage == 1) {
 							bossbullet[i].angel = (*angelflag) + (j * angleadd1);
 						}
@@ -1668,7 +1668,7 @@ void BossBulletCreate(double* angelflag) {//Bossµ¯Ä»Éú³É
 	}
 }
 
-void BossBulletMove() {//BOOSµ¯Ä»ÒÆ¶¯
+void BossBulletMove() {//BOOSå¼¹å¹•ç§»åŠ¨
 	for (int i = 0; i < boss_bullet_num; i++) {
 		if (bossbullet[i].x > 500 || bossbullet[i].x < -20 || bossbullet[i].y > 800 || bossbullet[i].y < - 20) {
 			bossbullet[i].live = false;
@@ -1703,7 +1703,7 @@ void BossBulletMove() {//BOOSµ¯Ä»ÒÆ¶¯
 	}
 }
 
-void BossHpShow() {//BossÑªÌõÏÔÊ¾
+void BossHpShow() {//Bossè¡€æ¡æ˜¾ç¤º
 	if (boss.hp > 0) {
 		setlinecolor(RGB(155,155,155));
 		setlinestyle(PS_SOLID, 5);
@@ -1714,7 +1714,7 @@ void BossHpShow() {//BossÑªÌõÏÔÊ¾
 	}
 }
 
-void BossDeath(int* plotflag) {//BossËÀÍö
+void BossDeath(int* plotflag) {//Bossæ­»äº¡
 	if (boss.hp <= 0 && boss.lives > 1) {
 		boss.hp = BOSS_HP;
 		boss.lives--;
@@ -1737,7 +1737,7 @@ void BossDeath(int* plotflag) {//BossËÀÍö
 	}
 }
 
-void GamePlot(int* plotflag,int num) {//ÓÎÏ·¾çÇé
+void GamePlot(int* plotflag,int num) {//æ¸¸æˆå‰§æƒ…
 	int flag = 0;
 	while (1) {
 		MapMove(num);
@@ -1748,48 +1748,48 @@ void GamePlot(int* plotflag,int num) {//ÓÎÏ·¾çÇé
 		putimage(348, 600, &img_plot[3], SRCINVERT);
 		putimage(40, 570, &img_talkframe);
 		setbkmode(BLACK);
-		settextstyle(30, 0, _T("»ªÎÄĞÂÎº"));
+		settextstyle(30, 0, _T("åæ–‡æ–°é­"));
 		settextcolor(BLACK);
 		if (*plotflag == 1) {
 			if (flag == 0) {
-				outtextxy(50, 580, _T("ÚÀ£¬ÕâÀïÊÇÄÄ£¿"));
-				outtextxy(50, 620, _T("ÄÑ²»³ÉÎÒÊÇÂ·³Õ£¿"));
+				outtextxy(50, 580, _T("è¯¶ï¼Œè¿™é‡Œæ˜¯å“ªï¼Ÿ"));
+				outtextxy(50, 620, _T("éš¾ä¸æˆæˆ‘æ˜¯è·¯ç—´ï¼Ÿ"));
 			}
 			else if (flag == 1) {
-				outtextxy(50, 580, _T("ÚÀ£¬ÕâÀïÊÇÄÄ£¿"));
-				outtextxy(50, 620, _T("ÄÑ²»³ÉÎÒÊÇÂ·³Õ£¿"));
-				outtextxy(160, 60, _T("Èç¹ûÃÔÂ·£¬"));
-				outtextxy(160, 100, _T("¶¨ÊÇÑı¾«ËùÎª"));
+				outtextxy(50, 580, _T("è¯¶ï¼Œè¿™é‡Œæ˜¯å“ªï¼Ÿ"));
+				outtextxy(50, 620, _T("éš¾ä¸æˆæˆ‘æ˜¯è·¯ç—´ï¼Ÿ"));
+				outtextxy(160, 60, _T("å¦‚æœè¿·è·¯ï¼Œ"));
+				outtextxy(160, 100, _T("å®šæ˜¯å¦–ç²¾æ‰€ä¸º"));
 			}
 			else if (flag == 2) {
-				outtextxy(50, 580, _T("°¡À²ÊÇÂğ£¿"));
-				outtextxy(50, 620, _T("ÄÇÃ´£¬´ø¸öÂ·°É£¿"));
-				outtextxy(50, 660, _T("Õâ¸½½üÓĞµº¶Ô²»¶Ô£¿"));
-				outtextxy(160, 60, _T("Èç¹ûÃÔÂ·£¬"));
-				outtextxy(160, 100, _T("¶¨ÊÇÑı¾«ËùÎª"));
+				outtextxy(50, 580, _T("å•Šå•¦æ˜¯å—ï¼Ÿ"));
+				outtextxy(50, 620, _T("é‚£ä¹ˆï¼Œå¸¦ä¸ªè·¯å§ï¼Ÿ"));
+				outtextxy(50, 660, _T("è¿™é™„è¿‘æœ‰å²›å¯¹ä¸å¯¹ï¼Ÿ"));
+				outtextxy(160, 60, _T("å¦‚æœè¿·è·¯ï¼Œ"));
+				outtextxy(160, 100, _T("å®šæ˜¯å¦–ç²¾æ‰€ä¸º"));
 			}
 			else if (flag == 3) {
-				outtextxy(50, 580, _T("°¡À²ÊÇÂğ£¿"));
-				outtextxy(50, 620, _T("ÄÇÃ´£¬´ø¸öÂ·°É£¿"));
-				outtextxy(50, 660, _T("Õâ¸½½üÓĞµº¶Ô²»¶Ô£¿"));
-				outtextxy(160, 60, _T("Äã°¡ ¿É±ğÏÅ×ÅÁËà¸£¬"));
-				outtextxy(160, 100, _T("ÔÚÄãÃæÇ°£¬"));
-				outtextxy(160, 140, _T("¿ÉÊÇÓĞ¸öÇ¿µĞÄØ¡£"));
+				outtextxy(50, 580, _T("å•Šå•¦æ˜¯å—ï¼Ÿ"));
+				outtextxy(50, 620, _T("é‚£ä¹ˆï¼Œå¸¦ä¸ªè·¯å§ï¼Ÿ"));
+				outtextxy(50, 660, _T("è¿™é™„è¿‘æœ‰å²›å¯¹ä¸å¯¹ï¼Ÿ"));
+				outtextxy(160, 60, _T("ä½ å•Š å¯åˆ«å“ç€äº†å–”ï¼Œ"));
+				outtextxy(160, 100, _T("åœ¨ä½ é¢å‰ï¼Œ"));
+				outtextxy(160, 140, _T("å¯æ˜¯æœ‰ä¸ªå¼ºæ•Œå‘¢ã€‚"));
 			}
 			else if (flag == 4) {
-				outtextxy(50, 580, _T("°Ğ×Ó£¿"));
-				outtextxy(50, 620, _T("Õâ»¹ÕæÊÇÁîÈË³Ô¾ª°¡"));
-				outtextxy(160, 60, _T("Äã°¡ ¿É±ğÏÅ×ÅÁËà¸£¬"));
-				outtextxy(160, 100, _T("ÔÚÄãÃæÇ°£¬"));
-				outtextxy(160, 140, _T("¿ÉÊÇÓĞ¸öÇ¿µĞÄØ¡£"));
+				outtextxy(50, 580, _T("é¶å­ï¼Ÿ"));
+				outtextxy(50, 620, _T("è¿™è¿˜çœŸæ˜¯ä»¤äººåƒæƒŠå•Š"));
+				outtextxy(160, 60, _T("ä½ å•Š å¯åˆ«å“ç€äº†å–”ï¼Œ"));
+				outtextxy(160, 100, _T("åœ¨ä½ é¢å‰ï¼Œ"));
+				outtextxy(160, 140, _T("å¯æ˜¯æœ‰ä¸ªå¼ºæ•Œå‘¢ã€‚"));
 			}
 			else if (flag == 5) {
-				outtextxy(50, 580, _T("°Ğ×Ó£¿"));
-				outtextxy(50, 620, _T("Õâ»¹ÕæÊÇÁîÈË³Ô¾ª°¡"));
-				outtextxy(160, 60, _T("¿ªÊ²Ã´ÍæĞ¦°¡¡«"));
-				outtextxy(160, 100, _T("ÏñÄãÕâÑùµÄÈË£¬")); 
-				outtextxy(160, 140, _T("¾ÍºÍÓ¢¼ªÀûÅ£ÈâÒ»Æğ"));
-				outtextxy(160, 180, _T("±ù¶³Àä²ØÆğÀ´°É£¡£¡"));
+				outtextxy(50, 580, _T("é¶å­ï¼Ÿ"));
+				outtextxy(50, 620, _T("è¿™è¿˜çœŸæ˜¯ä»¤äººåƒæƒŠå•Š"));
+				outtextxy(160, 60, _T("å¼€ä»€ä¹ˆç©ç¬‘å•Šï½"));
+				outtextxy(160, 100, _T("åƒä½ è¿™æ ·çš„äººï¼Œ")); 
+				outtextxy(160, 140, _T("å°±å’Œè‹±å‰åˆ©ç‰›è‚‰ä¸€èµ·"));
+				outtextxy(160, 180, _T("å†°å†»å†·è—èµ·æ¥å§ï¼ï¼"));
 			}
 			else if (flag >= 6) {
 				*plotflag = -1;
@@ -1802,16 +1802,16 @@ void GamePlot(int* plotflag,int num) {//ÓÎÏ·¾çÇé
 		}
 		else if (*plotflag == 2) {
 			if (flag == 0) {
-				outtextxy(160, 60, _T("¿É¶ñ£¬»¹Ã»Íê£¡"));
-				outtextxy(160, 100, _T("ÈÃÄã¼ûÊ¶Ò»ÏÂ"));
-				outtextxy(160, 140, _T("ÎÒÕæÕıµÄÁ¦Á¿"));
+				outtextxy(160, 60, _T("å¯æ¶ï¼Œè¿˜æ²¡å®Œï¼"));
+				outtextxy(160, 100, _T("è®©ä½ è§è¯†ä¸€ä¸‹"));
+				outtextxy(160, 140, _T("æˆ‘çœŸæ­£çš„åŠ›é‡"));
 			}
 			else if (flag == 1) {
-				outtextxy(50, 580, _T("°¦...ÕæÊÇÂé·³"));
-				outtextxy(50, 620, _T("·ÅÂí¹ıÀ´°É£¡"));
-				outtextxy(160, 60, _T("¿É¶ñ£¬»¹Ã»Íê£¡"));
-				outtextxy(160, 100, _T("ÈÃÄã¼ûÊ¶Ò»ÏÂ"));
-				outtextxy(160, 140, _T("ÎÒÕæÕıµÄÁ¦Á¿"));
+				outtextxy(50, 580, _T("å”‰...çœŸæ˜¯éº»çƒ¦"));
+				outtextxy(50, 620, _T("æ”¾é©¬è¿‡æ¥å§ï¼"));
+				outtextxy(160, 60, _T("å¯æ¶ï¼Œè¿˜æ²¡å®Œï¼"));
+				outtextxy(160, 100, _T("è®©ä½ è§è¯†ä¸€ä¸‹"));
+				outtextxy(160, 140, _T("æˆ‘çœŸæ­£çš„åŠ›é‡"));
 			}
 			else if (flag >= 2) {
 				*plotflag = -1;
@@ -1824,9 +1824,9 @@ void GamePlot(int* plotflag,int num) {//ÓÎÏ·¾çÇé
 		}
 		else if (*plotflag == 3) {
 			if (flag == 0) {
-				outtextxy(160, 60, _T("ÔõÃ´»áÕâÑù£¿"));
-				outtextxy(160, 100, _T("ÎÒç÷Â¶Åµ"));
-				outtextxy(160, 140, _T("¿ÉÊÇ×îÇ¿µÄ£¡"));
+				outtextxy(160, 60, _T("æ€ä¹ˆä¼šè¿™æ ·ï¼Ÿ"));
+				outtextxy(160, 100, _T("æˆ‘çªéœ²è¯º"));
+				outtextxy(160, 140, _T("å¯æ˜¯æœ€å¼ºçš„ï¼"));
 			}
 			else if (flag >= 1) {
 				*plotflag = -1;
@@ -1839,8 +1839,8 @@ void GamePlot(int* plotflag,int num) {//ÓÎÏ·¾çÇé
 		}
 		else if (*plotflag == 4) {
 			if (flag == 0) {
-				outtextxy(50, 580, _T("°¡°¡£¬Ô½À´Ô½ÀäÁË°¡"));
-				outtextxy(50, 620, _T("ÕâÑù»áµÃ¿Õµ÷²¡µÄ°¡"));
+				outtextxy(50, 580, _T("å•Šå•Šï¼Œè¶Šæ¥è¶Šå†·äº†å•Š"));
+				outtextxy(50, 620, _T("è¿™æ ·ä¼šå¾—ç©ºè°ƒç—…çš„å•Š"));
 			}
 			else if (flag >= 1) {
 				*plotflag = -1;
@@ -1868,11 +1868,9 @@ void GamePlot(int* plotflag,int num) {//ÓÎÏ·¾çÇé
 void MapMove(int num) {
 	putimage(0, map_y, &img_maps[num]);
 	putimage(0, map_y - 800, &img_maps[num]);
-	map_y += 1;//±³¾°ÒÆ¶¯
+	map_y += 1;//èƒŒæ™¯ç§»åŠ¨
 	if (map_y == 800) {
 		map_y = 0;
 	}
 	Sleep(10);
 }
-
-//23024117 ÑÖË¼Ô¶
